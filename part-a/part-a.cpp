@@ -10,15 +10,42 @@ using namespace std;
 *******************************************************************************/
 
 template <typename T>
-T findMaxRecTail(const T[] arr, const int size, int = 0)
+T findMaxRecTail(const T arr[], const int size, int i = 0)
 {
     // TO DO: Implement your code
+    if (i == size - 1) {
+        return arr[i];
+    }
+
+    T maxOfRest = findMaxRecTail(arr, size, i + 1);
+
+    if (arr[i] > maxOfRest) {
+        return arr[i];
+    } else {
+        return maxOfRest;
+    }
+    
 }
 
 template <typename T>
-T findMaxRecBinarySplit(const T[] arr, const int left, const int right)
+T findMaxRecBinarySplit(const T arr[], const int left, const int right)
 {
     // TO DO: Implement your code
+    if (left == right) {
+        return arr[left];
+    }
+
+    int mid = left + (right - left) / 2;
+
+    T leftMax = findMaxRecBinarySplit(arr, left, mid);
+    T rightMax = findMaxRecBinarySplit(arr, mid + 1, right);
+
+    if (leftMax > rightMax) {
+        return leftMax;
+    } else {
+        return rightMax;
+    }
+
 }
 /*******************************************************************************
  * Description:
